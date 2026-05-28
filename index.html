@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thoughts & Writings — A Space for Ideas</title>
+  <meta name="description" content="A personal collection of writings, essays, and thought pieces exploring ideas across philosophy, technology, culture, and everyday life." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Home">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">Writings</span>
+      </a>
+      <div class="nav-links">
+        <a href="#essays" class="nav-link">Essays</a>
+        <a href="#thoughts" class="nav-link">Thoughts</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" aria-pressed="true">
+        <span class="theme-icon theme-icon--light">☀</span>
+        <span class="theme-icon theme-icon--dark">☽</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-orb hero-orb--1"></div>
+        <div class="hero-orb hero-orb--2"></div>
+        <div class="hero-orb hero-orb--3"></div>
+        <div class="hero-grid"></div>
+      </div>
+      <div class="hero-content">
+        <span class="hero-eyebrow">A personal archive of</span>
+        <h1 id="hero-title" class="hero-title">
+          Writings &amp;<br />
+          <em>Thought Pieces</em>
+        </h1>
+        <p class="hero-subtitle">Ideas worth sitting with. Essays on technology, culture, philosophy, and the texture of everyday life.</p>
+        <div class="hero-cta">
+          <a href="#featured" class="btn btn--primary" id="hero-read-btn">Start Reading</a>
+          <a href="#about" class="btn btn--ghost" id="hero-about-btn">About This Space</a>
+        </div>
+        <div class="hero-stats" aria-label="Site statistics">
+          <div class="stat">
+            <span class="stat-number" id="stat-essays">24</span>
+            <span class="stat-label">Essays</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat">
+            <span class="stat-number" id="stat-thoughts">58</span>
+            <span class="stat-label">Thoughts</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat">
+            <span class="stat-number" id="stat-reads">12k</span>
+            <span class="stat-label">Reads</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span class="scroll-text">Scroll</span>
+      </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured" id="featured" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured</span>
+          <h2 id="featured-title" class="section-title">This Week's Essay</h2>
+        </div>
+        <article class="featured-card" id="featured-article">
+          <div class="featured-card__meta">
+            <span class="tag tag--essay">Essay</span>
+            <time datetime="2026-05-20">May 20, 2026</time>
+            <span class="read-time">8 min read</span>
+          </div>
+          <h3 class="featured-card__title">
+            <a href="article.html" id="featured-article-link">The Slow Mind in a Fast World: Why Deliberate Thinking is a Radical Act</a>
+          </h3>
+          <p class="featured-card__excerpt">We have optimised everything for speed. Instant replies, hot takes, algorithmic feeds that predict what you want before you know you want it. But something gets lost in the rush — the slow burn of an idea forming, the productive discomfort of holding two conflicting thoughts at once.</p>
+          <div class="featured-card__footer">
+            <div class="author">
+              <div class="author-avatar" aria-hidden="true">JD</div>
+              <span class="author-name">J.D.</span>
+            </div>
+            <a href="article.html" class="read-link" id="featured-read-link" aria-label="Read: The Slow Mind in a Fast World">Read Essay →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Essays Section -->
+    <section class="essays-section" id="essays" aria-labelledby="essays-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Archive</span>
+          <h2 id="essays-title" class="section-title">Essays</h2>
+          <p class="section-subtitle">Long-form explorations that take ideas seriously.</p>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter essays by topic">
+          <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
+          <button class="filter-btn" data-filter="technology" id="filter-tech">Technology</button>
+          <button class="filter-btn" data-filter="philosophy" id="filter-philosophy">Philosophy</button>
+          <button class="filter-btn" data-filter="culture" id="filter-culture">Culture</button>
+          <button class="filter-btn" data-filter="life" id="filter-life">Life</button>
+        </div>
+
+        <div class="essays-grid" id="essays-grid" role="list">
+
+          <article class="essay-card reveal-on-scroll" data-category="technology" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--tech" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--tech">Technology</span>
+                <time datetime="2026-05-10">May 10, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-1-link">Attention as Infrastructure: How Notifications Rewired the Self</a>
+              </h3>
+              <p class="essay-card__excerpt">Every ping is a small act of colonisation. Our most intimate cognitive resource — attention — has been paved over and monetised.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">6 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read Attention as Infrastructure" id="essay-1-read">→</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="essay-card reveal-on-scroll" data-category="philosophy" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--phil" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--phil">Philosophy</span>
+                <time datetime="2026-04-28">Apr 28, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-2-link">On the Ethics of Caring About Strangers</a>
+              </h3>
+              <p class="essay-card__excerpt">Moral circle expansion is one of history's great projects. But there's a tension between caring about everyone and caring deeply about anyone.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">9 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read On the Ethics of Caring About Strangers" id="essay-2-read">→</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="essay-card reveal-on-scroll" data-category="culture" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--culture" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--culture">Culture</span>
+                <time datetime="2026-04-12">Apr 12, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-3-link">The Death of the Third Place and What We Lost With It</a>
+              </h3>
+              <p class="essay-card__excerpt">Coffee shops, parks, libraries. The places where we used to exist without commerce or obligation are quietly disappearing.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">7 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read The Death of the Third Place" id="essay-3-read">→</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="essay-card reveal-on-scroll" data-category="life" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--life" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--life">Life</span>
+                <time datetime="2026-03-30">Mar 30, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-4-link">Notes on Doing Nothing Productively</a>
+              </h3>
+              <p class="essay-card__excerpt">There is a kind of useful idleness that our productivity-obsessed culture has forgotten how to practice.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">5 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read Notes on Doing Nothing Productively" id="essay-4-read">→</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="essay-card reveal-on-scroll" data-category="technology" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--tech2" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--tech">Technology</span>
+                <time datetime="2026-03-14">Mar 14, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-5-link">Autocomplete and the Erosion of Voice</a>
+              </h3>
+              <p class="essay-card__excerpt">When the machine finishes your sentences, who is speaking? The subtle ways predictive text is homogenising how we write and think.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">10 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read Autocomplete and the Erosion of Voice" id="essay-5-read">→</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="essay-card reveal-on-scroll" data-category="philosophy" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--phil2" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--phil">Philosophy</span>
+                <time datetime="2026-02-20">Feb 20, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="article.html" id="essay-6-link">Certainty is the Enemy of Understanding</a>
+              </h3>
+              <p class="essay-card__excerpt">The most intellectually honest position is often an uncomfortable one: holding strong beliefs loosely and updating them gracefully.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">8 min</span>
+                <a href="article.html" class="arrow-link" aria-label="Read Certainty is the Enemy of Understanding" id="essay-6-read">→</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="load-more-wrap">
+          <button class="btn btn--outline" id="load-more-btn">Load More Essays</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thoughts Section -->
+    <section class="thoughts-section" id="thoughts" aria-labelledby="thoughts-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Unfinished</span>
+          <h2 id="thoughts-title" class="section-title">Thought Pieces</h2>
+          <p class="section-subtitle">Shorter, rawer. Ideas still in conversation with themselves.</p>
+        </div>
+
+        <div class="thoughts-list" id="thoughts-list" role="list">
+
+          <article class="thought-item reveal-on-scroll" role="listitem">
+            <div class="thought-item__date">
+              <time datetime="2026-05-25">May 25</time>
+            </div>
+            <div class="thought-item__body">
+              <h3 class="thought-item__title">
+                <a href="article.html" id="thought-1-link">Why do we apologise for thinking out loud?</a>
+              </h3>
+              <p class="thought-item__text">Somewhere along the way I learned to pre-apologise for ideas. "This might be wrong but—" "I haven't fully thought this through, but—". What is that? A defensive crouch against being caught uncertain. But uncertainty is the beginning of thought, not its failure.</p>
+              <span class="read-time">2 min</span>
+            </div>
+          </article>
+
+          <article class="thought-item reveal-on-scroll" role="listitem">
+            <div class="thought-item__date">
+              <time datetime="2026-05-18">May 18</time>
+            </div>
+            <div class="thought-item__body">
+              <h3 class="thought-item__title">
+                <a href="article.html" id="thought-2-link">The tyranny of the 5-star rating</a>
+              </h3>
+              <p class="thought-item__text">We've flattened the entire spectrum of human experience into five stars. A film that changed your life: 5 stars. A meal that was fine: 3.5 stars. The infrastructure of judgment has colonised everything, including how we experience the things we judge.</p>
+              <span class="read-time">3 min</span>
+            </div>
+          </article>
+
+          <article class="thought-item reveal-on-scroll" role="listitem">
+            <div class="thought-item__date">
+              <time datetime="2026-05-09">May 9</time>
+            </div>
+            <div class="thought-item__body">
+              <h3 class="thought-item__title">
+                <a href="article.html" id="thought-3-link">Cities as personalities</a>
+              </h3>
+              <p class="thought-item__text">Every city has a theory of the good life baked into its architecture. Mumbai says: density is energy. Tokyo says: precision is care. Barcelona says: the street is a room. The urban planner is an unwitting philosopher.</p>
+              <span class="read-time">2 min</span>
+            </div>
+          </article>
+
+          <article class="thought-item reveal-on-scroll" role="listitem">
+            <div class="thought-item__date">
+              <time datetime="2026-04-30">Apr 30</time>
+            </div>
+            <div class="thought-item__body">
+              <h3 class="thought-item__title">
+                <a href="article.html" id="thought-4-link">Against "content"</a>
+              </h3>
+              <p class="thought-item__text">When did we start calling everything "content"? A novel is content. A symphony is content. A handwritten letter is content. The word flattens the medium, erasing what makes each form distinct. It is the vocabulary of distribution masquerading as the vocabulary of creation.</p>
+              <span class="read-time">2 min</span>
+            </div>
+          </article>
+
+          <article class="thought-item reveal-on-scroll" role="listitem">
+            <div class="thought-item__date">
+              <time datetime="2026-04-22">Apr 22</time>
+            </div>
+            <div class="thought-item__body">
+              <h3 class="thought-item__title">
+                <a href="article.html" id="thought-5-link">What would "enough" look like?</a>
+              </h3>
+              <p class="thought-item__text">I keep trying to answer this question and keep finding it slippery. Enough money. Enough recognition. Enough time. The horizon shifts every time I think I'm close. Maybe that's the point — the pursuit, not the threshold. Or maybe I've just been trained to believe that.</p>
+              <span class="read-time">3 min</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote / Interlude -->
+    <section class="interlude" aria-hidden="true">
+      <div class="interlude-inner">
+        <blockquote class="pull-quote">
+          <p>"Writing is thinking made visible. And thinking, done honestly, is a form of courage."</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-text reveal-on-scroll">
+          <span class="section-tag">About</span>
+          <h2 id="about-title" class="section-title">This Space</h2>
+          <p>This is where I think out loud. Not finished thoughts — just thoughts in progress, ideas worth following to their ends, questions that keep coming back.</p>
+          <p>I write about technology and what it's doing to us, about philosophy and how it helps us navigate the world, about culture and the strange moment we find ourselves in, and about life — the texture of it, the small things that matter.</p>
+          <p>No newsletter. No algorithm. Just writing, when there's something worth saying.</p>
+          <div class="about-links">
+            <a href="mailto:hello@example.com" class="btn btn--primary" id="about-email-btn">Get in Touch</a>
+          </div>
+        </div>
+        <div class="about-visual reveal-on-scroll" aria-hidden="true">
+          <div class="about-card">
+            <div class="about-card__avatar">JD</div>
+            <h3 class="about-card__name">J.D.</h3>
+            <p class="about-card__bio">Writer. Thinker. Occasional philosopher.</p>
+            <div class="about-card__stats">
+              <div class="about-stat">
+                <span class="about-stat__num">24</span>
+                <span class="about-stat__label">Essays</span>
+              </div>
+              <div class="about-stat">
+                <span class="about-stat__num">58</span>
+                <span class="about-stat__label">Thoughts</span>
+              </div>
+              <div class="about-stat">
+                <span class="about-stat__num">3yr</span>
+                <span class="about-stat__label">Writing</span>
+              </div>
+            </div>
+            <div class="about-card__topics">
+              <span class="topic-pill">Technology</span>
+              <span class="topic-pill">Philosophy</span>
+              <span class="topic-pill">Culture</span>
+              <span class="topic-pill">Life</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">✦</span>
+        <span>Writings</span>
+      </div>
+      <p class="footer-copy">Written with care. Read at your own pace.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#essays" class="footer-link">Essays</a>
+        <a href="#thoughts" class="footer-link">Thoughts</a>
+        <a href="#about" class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
