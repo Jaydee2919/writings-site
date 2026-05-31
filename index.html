@@ -54,7 +54,7 @@
         </div>
         <div class="hero-stats" aria-label="Site statistics">
           <div class="stat">
-            <span class="stat-number" id="stat-essays">24</span>
+            <span class="stat-number" id="stat-essays">25</span>
             <span class="stat-label">Essays</span>
           </div>
           <div class="stat-divider" aria-hidden="true"></div>
@@ -85,19 +85,19 @@
         <article class="featured-card" id="featured-article">
           <div class="featured-card__meta">
             <span class="tag tag--essay">Essay</span>
-            <time datetime="2026-05-20">May 20, 2026</time>
-            <span class="read-time">8 min read</span>
+            <time datetime="2026-05-31">May 31, 2026</time>
+            <span class="read-time">5 min read</span>
           </div>
           <h3 class="featured-card__title">
-            <a href="article.html" id="featured-article-link">The Slow Mind in a Fast World: Why Deliberate Thinking is a Radical Act</a>
+            <a href="rupee-essay.html" id="featured-article-link">How Far Can the Rupee Fall? (And Why It's Actually Under Control)</a>
           </h3>
-          <p class="featured-card__excerpt">We have optimised everything for speed. Instant replies, hot takes, algorithmic feeds that predict what you want before you know you want it. But something gets lost in the rush — the slow burn of an idea forming, the productive discomfort of holding two conflicting thoughts at once.</p>
+          <p class="featured-card__excerpt">When we see the Indian Rupee dropping against the US Dollar, the natural reaction is to worry. But behind the scenes, a very deliberate strategy is at play — Controlled Devaluation. India holds the world's 5th largest foreign exchange reserve. Here's a simple look at how it works, why it happens, and where the hard limits are.</p>
           <div class="featured-card__footer">
             <div class="author">
               <div class="author-avatar" aria-hidden="true">JD</div>
               <span class="author-name">J.D.</span>
             </div>
-            <a href="article.html" class="read-link" id="featured-read-link" aria-label="Read: The Slow Mind in a Fast World">Read Essay →</a>
+            <a href="rupee-essay.html" class="read-link" id="featured-read-link" aria-label="Read: How Far Can the Rupee Fall?">Read Essay →</a>
           </div>
         </article>
       </div>
@@ -114,6 +114,7 @@
 
         <div class="filter-bar" role="group" aria-label="Filter essays by topic">
           <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
+          <button class="filter-btn" data-filter="finance" id="filter-finance">Finance</button>
           <button class="filter-btn" data-filter="technology" id="filter-tech">Technology</button>
           <button class="filter-btn" data-filter="philosophy" id="filter-philosophy">Philosophy</button>
           <button class="filter-btn" data-filter="culture" id="filter-culture">Culture</button>
@@ -121,6 +122,26 @@
         </div>
 
         <div class="essays-grid" id="essays-grid" role="list">
+
+          <article class="essay-card reveal-on-scroll" data-category="finance" role="listitem">
+            <div class="essay-card__image-wrap">
+              <div class="essay-card__image essay-card__image--finance" aria-hidden="true"></div>
+            </div>
+            <div class="essay-card__body">
+              <div class="essay-card__meta">
+                <span class="tag tag--essay">Finance</span>
+                <time datetime="2026-05-31">May 31, 2026</time>
+              </div>
+              <h3 class="essay-card__title">
+                <a href="rupee-essay.html" id="essay-rupee-link">How Far Can the Rupee Fall? (And Why It's Actually Under Control)</a>
+              </h3>
+              <p class="essay-card__excerpt">A falling rupee isn't a sign of weakness — it's a deliberate, controlled strategy. India's $681B reserves rank #5 globally. Here's how it all works.</p>
+              <div class="essay-card__footer">
+                <span class="read-time">5 min</span>
+                <a href="rupee-essay.html" class="arrow-link" aria-label="Read How Far Can the Rupee Fall?" id="essay-rupee-read">→</a>
+              </div>
+            </div>
+          </article>
 
           <article class="essay-card reveal-on-scroll" data-category="technology" role="listitem">
             <div class="essay-card__image-wrap">

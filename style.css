@@ -759,6 +759,7 @@ ul, ol { list-style: none; }
 .essay-card__image--life    { background: linear-gradient(135deg in oklch, #0a2e20, #1a5c3d, #0a3020); }
 .essay-card__image--tech2   { background: linear-gradient(135deg in oklch, #0a1a3e, #1a3a6e, #0a2a5c); }
 .essay-card__image--phil2   { background: linear-gradient(135deg in oklch, #1e0a3a, #4a1870, #2a0a4e); }
+.essay-card__image--finance { background: linear-gradient(135deg in oklch, #0a2010, #1a5030, #103820); }
 
 [data-theme="light"] .essay-card__image--tech    { background: linear-gradient(135deg in oklch, #ddd5ff, #c4b0f0, #b0ccf0); }
 [data-theme="light"] .essay-card__image--phil    { background: linear-gradient(135deg in oklch, #f0ddf8, #e0b8f0, #f0d0e8); }
@@ -766,6 +767,7 @@ ul, ol { list-style: none; }
 [data-theme="light"] .essay-card__image--life    { background: linear-gradient(135deg in oklch, #ddf0e8, #b8f0d0, #d0f0e0); }
 [data-theme="light"] .essay-card__image--tech2   { background: linear-gradient(135deg in oklch, #d5e5ff, #b0c8f0, #d0deff); }
 [data-theme="light"] .essay-card__image--phil2   { background: linear-gradient(135deg in oklch, #ead5ff, #d0b0f0, #f0d5ff); }
+[data-theme="light"] .essay-card__image--finance { background: linear-gradient(135deg in oklch, #d5f0e0, #b0e8c8, #c8f0d8); }
 
 .essay-card__body {
   padding: var(--space-lg);
