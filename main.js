@@ -131,7 +131,7 @@ if (statsSection) {
   const statsObserver = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting && !statsAnimated) {
       statsAnimated = true;
-      animateNumber(document.getElementById('stat-essays'), 25);
+      animateNumber(document.getElementById('stat-essays'), 27);
       animateNumber(document.getElementById('stat-thoughts'), 58);
       animateNumber(document.getElementById('stat-reads'), '12k');
       statsObserver.disconnect();

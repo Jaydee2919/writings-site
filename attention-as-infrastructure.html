@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attention as Infrastructure — Writings</title>
+  <meta name="description" content="Every ping is a small act of colonisation. Our most intimate cognitive resource — attention — has been paved over and monetised." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="article.css" />
+  <style>
+    /* Custom spacing / visual elements for this essay */
+    .callout {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-2xl) 0;
+    }
+    .callout__title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-1);
+      margin-bottom: var(--space-md);
+    }
+    .callout p {
+      font-size: 0.95rem !important;
+      margin-bottom: 0 !important;
+      color: var(--text-secondary) !important;
+    }
+    .infra-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin: var(--space-xl) 0 var(--space-2xl);
+    }
+    @media (max-width: 560px) { .infra-grid { grid-template-columns: 1fr; } }
+    .infra-card {
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+    .infra-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+    .infra-card__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-1);
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.05em;
+    }
+    .infra-card p {
+      font-size: 0.88rem !important;
+      color: var(--text-secondary) !important;
+      line-height: 1.7 !important;
+      margin: 0 !important;
+    }
+    .emoji-heading {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .emoji-heading .emoji { font-style: normal; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Back to home">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">Writings</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#essays" class="nav-link">Essays</a>
+        <a href="index.html#thoughts" class="nav-link">Thoughts</a>
+        <a href="index.html#about" class="nav-link">About</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" aria-pressed="true">
+        <span class="theme-icon theme-icon--light">☀</span>
+        <span class="theme-icon theme-icon--dark">☽</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <main class="article-main">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="article-header__inner">
+        <div class="article-meta">
+          <span class="tag tag--tech">Technology</span>
+          <time datetime="2026-05-10" class="article-date">May 10, 2026</time>
+          <span class="read-time">6 min read</span>
+        </div>
+        <h1 class="article-title">Attention as Infrastructure:<br><em style="font-style:italic; font-size:0.85em; opacity:0.85;">How Notifications Rewired the Self</em></h1>
+        <p class="article-lede">Every ping is a small act of colonisation. Our most intimate cognitive resource — attention — has been paved over, commodified, and turned into digital infrastructure.</p>
+        <div class="article-author">
+          <div class="author-avatar" aria-hidden="true">JD</div>
+          <div class="author-info">
+            <span class="author-name">J.D.</span>
+            <span class="author-role">Writer & Thinker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Body -->
+    <div class="article-body" id="article-body">
+      <div class="article-content">
+
+        <p class="article-intro">If you were to overlay a map of the world's physical roads with a map of its fiber-optic cables, you would see a striking overlap. The trade routes of the nineteenth century became the data routes of the twenty-first. But the most valuable route of all is one that cannot be mapped on a globe: the conduit leading straight into your prefrontal cortex.</p>
+
+        <p>We tend to talk about our relationship with technology in moral terms. We talk about "distraction," "screentime," and "willpower." We treat the constant pull of the device as a personal failing—a lack of discipline. But this frames the problem backward. You are not failing to pay attention; you are being out-engineered by the largest infrastructure project in human history.</p>
+
+        <p>Physical infrastructure—highways, power grids, water lines—exists to channel resources. Digital attention infrastructure does the exact same thing. It is designed to capture, gather, and route your cognitive capacity toward markets.</p>
+
+        <!-- Section 1: The Paving of the Mind -->
+        <h2 class="emoji-heading"><span class="emoji">🛣️</span> The Paving of the Inner Commons</h2>
+
+        <p>Before highways, land was a commons. People walked across fields, took winding paths, and navigated by landmarks. The highway paved over that landscape, imposing a single, efficient route designed for speed and commerce. The attention economy has done the same to our inner landscape.</p>
+
+        <p>Our thoughts once had a commons: unstructured daydreaming, uninterrupted reading, long walks where the mind could wander down winding paths of association. Today, that inner space has been paved. Every notification is a street sign directing you back onto the main tollway. Every red badge is a toll gate demanding your interaction.</p>
+
+        <div class="callout">
+          <div class="callout__title">💡 The Monetisation of the Blank Slate</div>
+          <p>An empty minute was once a liability for a business; now it is an opportunity. If you are standing in line waiting for a train, you are a localized pocket of unused capacity. The attention infrastructure is designed to make sure that capacity is immediately harvested, monetised, and logged.</p>
+        </div>
+
+        <p>This systematic paving has rewired how we experience time itself. We no longer have "empty" time. We have highly structured intervals of waiting, punctuated by micro-interactions that keep us wired to the grid.</p>
+
+        <!-- Section 2: Two Models of Attention -->
+        <h2 class="emoji-heading"><span class="emoji">⚙️</span> Two Models of Attention</h2>
+
+        <p>To understand how this infrastructure affects us, we must look at how attention is structured by different systems:</p>
+
+        <div class="infra-grid" role="list" aria-label="Two models of attention routing">
+          <div class="infra-card" role="listitem">
+            <div class="infra-card__label">Organic Attention</div>
+            <div class="infra-card__title">The Deep Well</div>
+            <p>Slow, contextual, and internally motivated. It wanders, makes slow associations, and requires stillness to form deep insights. It is highly sensitive to disruption and takes up to twenty minutes to recover from a single interruption.</p>
+          </div>
+          <div class="infra-card" role="listitem">
+            <div class="infra-card__label">Engineered Attention</div>
+            <div class="infra-card__title">The Feedback Loop</div>
+            <p>Fast, reactive, and externally triggered. It is optimized for immediate clicks, high-frequency switching, and constant dopamine feedback. It treats boredom as a threat and replaces deep focus with a state of hyper-vigilance.</p>
+          </div>
+        </div>
+
+        <!-- Section 3: The Cost of the Invisible Tax -->
+        <h2 class="emoji-heading"><span class="emoji">📉</span> The Invisible Tax on Creative Output</h2>
+
+        <p>When attention becomes infrastructure, we pay a tax that we cannot see. In economics, infrastructure quality determines the efficiency of the entire economy. If roads are broken, goods move slower. If the attention grid is fractured, creative work suffers.</p>
+
+        <p>The tax is paid in the ideas that never form. Deep, original work requires a cognitive state called "incubation"—allowing an idea to sit in the background of the mind, undisturbed, while the unconscious works on it. When we check our phones every six minutes, we reset the incubation timer. We pull the seed out of the ground to check if it's growing, and in doing so, we kill it.</p>
+
+        <blockquote class="article-quote">
+          <p>The ultimate luxury of the twenty-first century is not wealth, but uninterrupted time. Those who can protect their attention will own the future; those who cannot will be owned by it.</p>
+        </blockquote>
+
+        <!-- Section 4: Reclaiming the Commons -->
+        <h2 class="emoji-heading"><span class="emoji">🛡️</span> Reclaiming the Commons</h2>
+
+        <p>We cannot opt out of the attention infrastructure entirely—just as we cannot opt out of roads or electricity. But we can build bypasses. We can create environments that are intentionally off-grid. This is not "digital detox"—which implies a temporary cure for a permanent condition. It is a structural redesign of our relationship with our tools.</p>
+
+        <p>By treating attention as our primary infrastructure, we can begin to design it with care: setting structural boundaries, blocking reactive notifications, and protecting the quiet, winding paths of organic thought.</p>
+
+        <!-- CTA / Comments -->
+        <div class="cta-box">
+          <div class="cta-box__emoji" aria-hidden="true">💬</div>
+          <h3>How do you protect your attention?</h3>
+          <p>Have you successfully rewired your digital habits? What boundary-setting practices have actually worked for you in keeping your focus deep and undisturbed? Let's talk.</p>
+          <a href="mailto:hello@jayantadb.co.in?subject=Re: Attention as Infrastructure" class="btn btn--primary" id="comments-cta-btn">Let's Discuss →</a>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar" aria-label="Article sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">About</h3>
+            <div class="author-avatar author-avatar--sm" aria-hidden="true">JD</div>
+            <p class="sidebar-bio">J.D. writes about ideas that deserve more time than we usually give them.</p>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Key Infrastructure</h3>
+            <ul class="related-list">
+              <li><a href="#" style="pointer-events:none; cursor:default;">🚦 Notifications as traffic controls</a></li>
+              <li><a href="#" style="pointer-events:none; cursor:default;">🔄 The 20-minute focus reset timer</a></li>
+              <li><a href="#" style="pointer-events:none; cursor:default;">🌾 The cognitive commons</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Related</h3>
+            <ul class="related-list">
+              <li><a href="eval-authoring.html" id="related-1">Eval Authoring: Reliable Test Cases</a></li>
+              <li><a href="article.html" id="related-2">The Slow Mind in a Fast World</a></li>
+              <li><a href="rupee-essay.html" id="related-3">How Far Can the Rupee Fall?</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card sidebar-topics">
+            <h3 class="sidebar-title">Topics</h3>
+            <div class="sidebar-tags">
+              <span class="tag tag--tech">Technology</span>
+              <span class="tag tag--essay">Infrastructure</span>
+              <span class="tag tag--phil">Philosophy</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Article navigation -->
+    <nav class="article-nav" aria-label="Article navigation">
+      <a href="eval-authoring.html" class="article-nav__item article-nav__item--prev" id="prev-article">
+        <span class="article-nav__dir">← Previous</span>
+        <span class="article-nav__title">Eval Authoring: Designing Reliable Test Cases</span>
+      </a>
+      <a href="infinite-liquidity.html" class="article-nav__item article-nav__item--next" id="next-article">
+        <span class="article-nav__dir">Next Essay →</span>
+        <span class="article-nav__title">The Illusion of Infinite Liquidity</span>
+      </a>
+    </nav>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">✦</span>
+        <span>Writings</span>
+      </div>
+      <p class="footer-copy">Written with care. Read at your own pace.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html#essays" class="footer-link">Essays</a>
+        <a href="index.html#thoughts" class="footer-link">Thoughts</a>
+        <a href="index.html#about" class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="article.js"></script>
+</body>
+</html>
