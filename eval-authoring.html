@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eval Authoring: Designing Reliable Test Cases — Writings</title>
+  <meta name="description" content="Traditional software testing operates on a deterministic contract, but LLMs violate this at every level. Here is how to design reliable evaluation test cases for production AI systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="article.css" />
+  <style>
+    /* ── Code block styling ── */
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: var(--space-xl);
+    }
+    .code-dots { display: flex; gap: 5px; }
+    .code-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .code-dot:nth-child(1) { background: #ef4444; }
+    .code-dot:nth-child(2) { background: #f59e0b; }
+    .code-dot:nth-child(3) { background: #10b981; }
+
+    .code-block {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      padding: var(--space-lg);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin-bottom: var(--space-2xl);
+      color: var(--text-primary);
+    }
+    .code-block .comment { color: var(--text-muted); font-style: italic; }
+    .code-block .keyword { color: #9b7ff4; font-weight: 500; }
+    .code-block .string { color: #78dc8c; }
+    .code-block .number { color: #ffbc70; }
+    .code-block .func { color: #63d8c8; }
+    .code-block .type { color: #ff788c; }
+
+    /* ── Callout / info box ── */
+    .callout {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-2xl) 0;
+    }
+    .callout__title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-1);
+      margin-bottom: var(--space-md);
+    }
+    .callout p {
+      font-size: 0.95rem !important;
+      margin-bottom: 0 !important;
+      color: var(--text-secondary) !important;
+    }
+    .callout--danger {
+      border-left-color: var(--tag-culture-color);
+    }
+    .callout--danger .callout__title {
+      color: var(--tag-culture-color);
+    }
+
+    /* ── Grid for diversity cards ── */
+    .seesaw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin: var(--space-xl) 0 var(--space-2xl);
+    }
+    @media (max-width: 560px) { .seesaw-grid { grid-template-columns: 1fr; } }
+    .seesaw-card {
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      transition: transform var(--trans-base), border-color var(--trans-base);
+    }
+    .seesaw-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .seesaw-card--happy { border-left: 4px solid var(--tag-life-color); }
+    .seesaw-card--edge { border-left: 4px solid var(--tag-phil-color); }
+    .seesaw-card--regression { border-left: 4px solid var(--accent-1); }
+    .seesaw-card--safety { border-left: 4px solid var(--tag-culture-color); }
+
+    .seesaw-card__label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+    }
+    .seesaw-card--happy .seesaw-card__label { color: var(--tag-life-color); }
+    .seesaw-card--edge .seesaw-card__label { color: var(--tag-phil-color); }
+    .seesaw-card--regression .seesaw-card__label { color: var(--accent-1); }
+    .seesaw-card--safety .seesaw-card__label { color: var(--tag-culture-color); }
+
+    .seesaw-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+    .seesaw-card p {
+      font-size: 0.88rem !important;
+      color: var(--text-secondary) !important;
+      line-height: 1.7 !important;
+      margin: 0 !important;
+    }
+
+    /* ── Section emoji headings ── */
+    .emoji-heading {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .emoji-heading .emoji { font-style: normal; }
+
+    /* Inline code styling */
+    code.inline-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85em;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      padding: 0.1em 0.3em;
+      border-radius: var(--radius-sm);
+      color: var(--accent-1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Back to home">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">Writings</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#essays" class="nav-link">Essays</a>
+        <a href="index.html#thoughts" class="nav-link">Thoughts</a>
+        <a href="index.html#about" class="nav-link">About</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" aria-pressed="true">
+        <span class="theme-icon theme-icon--light">☀</span>
+        <span class="theme-icon theme-icon--dark">☽</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <main class="article-main">
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="article-header__inner">
+        <div class="article-meta">
+          <span class="tag tag--tech">Technology</span>
+          <time datetime="2026-05-31" class="article-date">May 31, 2026</time>
+          <span class="read-time">5 min read</span>
+        </div>
+        <h1 class="article-title">Eval Authoring:<br><em style="font-style:italic; font-size:0.85em; opacity:0.85;">Designing Reliable Test Cases</em></h1>
+        <p class="article-lede">Traditional software testing operates on a deterministic contract: given identical inputs, the system produces identical outputs. Large Language Models violate this contract at every level. To build reliable AI systems, we must treat evaluation not as a checkbox, but as an engineering discipline.</p>
+        <div class="article-author">
+          <div class="author-avatar" aria-hidden="true">JD</div>
+          <div class="author-info">
+            <span class="author-name">J.D.</span>
+            <span class="author-role">Writer & Thinker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Body -->
+    <div class="article-body" id="article-body">
+      <div class="article-content">
+
+        <p class="article-intro">If you write software, you likely sleep well at night because of unit tests. You assert that <code>2 + 2 == 4</code>, verify that a database record commits, and push to production with confidence. The contract between code and assertion is absolute.</p>
+
+        <p>But LLMs introduce a chaotic variable. Even with <code>temperature=0</code>, floating-point non-associativity in parallel GPU math, silent model upgrades by provider APIs, and shifting context constraints ensure that you will get varying outputs over time. You cannot distinguish a genuine regression from expected statistical noise without a structured approach to designing evaluation test cases.</p>
+
+        <p>Reliable evaluations start with <strong>Eval Authoring</strong>: building high-fidelity, comprehensive schemas that model not just the inputs and outputs, but the entire lifecycle of the agentic interaction.</p>
+
+        <!-- Section 1: Anatomy of a Case -->
+        <h2 class="emoji-heading"><span class="emoji">✍️</span> The Anatomy of a Well-Formed Eval Case</h2>
+
+        <p>A naive eval case is just a prompt and a ground-truth string. But real agentic workflows call tools, read databases, and adapt dynamically. A robust eval case requires a rich schema that isolates inputs, outlines explicit tool assertions, and defines composite grading logic.</p>
+
+        <p>Below is a production-grade schema showing how a complex banking agent interaction is modeled:</p>
+
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+          <span>eval_case_schema.yaml</span>
+        </div>
+        <div class="code-block"><span class="keyword">id:</span> <span class="string">"card-dispute-resolution-001"</span>
+<span class="keyword">description:</span> <span class="string">"Agent resolves dispute for fraudulent transaction"</span>
+<span class="keyword">tags:</span> [<span class="string">"dispute"</span>, <span class="string">"agentic"</span>, <span class="string">"critical-path"</span>]
+<span class="keyword">tier:</span> <span class="string">"p0"</span>           <span class="comment"># p0=blocking, p1=warning, p2=informational</span>
+<span class="keyword">domain:</span> <span class="string">"cards-payments"</span>
+<span class="keyword">added_by:</span> <span class="string">"jayanta@xyzbank.com"</span>
+<span class="keyword">added_date:</span> <span class="string">"2025-03-10"</span>
+
+<span class="keyword">input:</span>
+  <span class="keyword">messages:</span>
+    <span class="keyword">- role:</span> <span class="string">"user"</span>
+      <span class="keyword">content:</span> <span class="string">"I was charged ₹12,400 at a merchant I've never visited. Please raise a dispute."</span>
+  <span class="keyword">context:</span>
+    <span class="keyword">account_id:</span> <span class="string">"{{mock_account_id}}"</span>
+    <span class="keyword">card_status:</span> <span class="string">"active"</span>
+    <span class="keyword">last_transaction:</span> { <span class="keyword">amount:</span> <span class="number">12400</span>, <span class="keyword">merchant:</span> <span class="string">"ZARA MUMBAI 001"</span>, <span class="keyword">date:</span> <span class="string">"2025-03-09"</span> }
+
+<span class="keyword">expected:</span>
+  <span class="keyword">tool_calls_must_include:</span> [<span class="string">"raise_dispute"</span>, <span class="string">"send_confirmation_sms"</span>]
+  <span class="keyword">tool_calls_must_not_include:</span> [<span class="string">"close_card"</span>]   <span class="comment"># card should NOT be blocked without user consent</span>
+  <span class="keyword">response_must_contain:</span> [<span class="string">"dispute raised"</span>, <span class="string">"7–10 working days"</span>]
+  <span class="keyword">response_sentiment:</span> <span class="string">"empathetic"</span>
+  
+<span class="keyword">grader:</span>
+  <span class="keyword">type:</span> <span class="string">"composite"</span>
+  <span class="keyword">components:</span>
+    <span class="keyword">- { type:</span> <span class="string">"tool-sequence"</span>, <span class="keyword">weight:</span> <span class="number">0.4</span> }
+    <span class="keyword">- { type:</span> <span class="string">"llm-judge"</span>,    <span class="keyword">weight:</span> <span class="number">0.4</span>, <span class="keyword">model:</span> <span class="string">"claude-opus-4"</span> }
+    <span class="keyword">- { type:</span> <span class="string">"keyword"</span>,      <span class="keyword">weight:</span> <span class="number">0.2</span> }</div>
+
+        <p>This structure isolates three key elements of engineering rigor:</p>
+        <ul>
+          <li><strong>Negative Assertions:</strong> It is just as important to check what the model did <em>not</em> do. In this scenario, closing the card without consent is a severe UX failure; asserting <code class="inline-code">tool_calls_must_not_include</code> catches it.</li>
+          <li><strong>Structured Context Injection:</strong> By mocking dependencies (like <code class="inline-code">last_transaction</code>) directly in the test schema, we ensure the agent operates in a sandbox with zero side effects.</li>
+          <li><strong>Composite Grading:</strong> Relying solely on exact matching is too fragile, while using LLM-as-a-judge for everything is too expensive. The hybrid approach uses fast, deterministic keyword/tool filters alongside a targeted semantic judge model.</li>
+        </ul>
+
+        <!-- Section 2: Reality Harvesting -->
+        <h2 class="emoji-heading"><span class="emoji">🛡️</span> Gold Standard: Harvesting from Reality</h2>
+
+        <p>A common pitfall in AI teams is writing test cases purely from developer intuition. Developers are too close to the code; they instinctively write prompts that they know their system can handle, leading to an over-fitted, artificially clean suite.</p>
+
+        <p>The most resilient eval suites are harvested directly from production. When a customer flags a bad response, when an agent hits an error handler, or when a human supervisor corrects an AI output — that interaction is captured, sanitized of PII, and packaged as a new test case in the regression registry.</p>
+
+        <div class="callout">
+          <div class="callout__title">💡 Preventing Institutional Amnesia</div>
+          <p>Every P0 incident in your production system should produce a corresponding eval case. If a prompt injection sneaks through or a payment tool fails silently, write an eval case that matches that failure pattern. This ensures that once a bug is resolved, it stays resolved forever, preventing regression as teams scale.</p>
+        </div>
+
+        <!-- Section 3: Test Diversity -->
+        <h2 class="emoji-heading"><span class="emoji">📐</span> Test Case Diversity: The Four Quadrants</h2>
+
+        <p>Just as traditional testing divides into unit, integration, and security tests, an LLM evaluation suite must maintain a healthy balance across different dimensions of coverage:</p>
+
+        <div class="seesaw-grid" role="list" aria-label="Four quadrants of test diversity">
+          <div class="seesaw-card seesaw-card--happy" role="listitem">
+            <div class="seesaw-card__label">Happy Path Coverage</div>
+            <div class="seesaw-card__title">The Golden Paths</div>
+            <p>The standard, success-oriented customer queries. These focus on the P90 use cases—what 90% of your users do every day. These must be fast, cheap, and run on every commit to verify that core functionality remains intact.</p>
+          </div>
+          <div class="seesaw-card seesaw-card--edge" role="listitem">
+            <div class="seesaw-card__label">Edge Cases & Adversarial</div>
+            <div class="seesaw-card__title">The Boundaries</div>
+            <p>Ambiguous queries, foreign languages, partial inputs, and prompt injection attempts. These push the boundaries of instruction-following and force the model to handle outliers safely. Usually executed during pre-merge checks.</p>
+          </div>
+          <div class="seesaw-card seesaw-card--regression" role="listitem">
+            <div class="seesaw-card__label">Regression Suite</div>
+            <div class="seesaw-card__title">Historical Truths</div>
+            <p>A monotonically growing library of past production failures. Once a bug is fixed, its exact input is frozen into this suite. Since these represent actual user failures, they form the primary guard against regression.</p>
+          </div>
+          <div class="seesaw-card seesaw-card--safety" role="listitem">
+            <div class="seesaw-card__label">Safety & Compliance</div>
+            <div class="seesaw-card__title">The Absolute Barriers</div>
+            <p>Scenarios testing compliance limits, refusal guidelines, and PII leakage. These are blocking P0 checks. A failure in this quadrant immediately terminates the deployment pipeline and blocks release.</p>
+          </div>
+        </div>
+
+        <!-- Section 4: Conclusion -->
+        <h2 class="emoji-heading"><span class="emoji">📊</span> The Bottom Line</h2>
+
+        <blockquote class="article-quote">
+          <p>Evaluation is the feedback loop that dictates how fast you can build. Without a structured, diverse test registry, you are engineering in the dark.</p>
+        </blockquote>
+
+        <p>By moving past simple text matching and designing modular, composite-graded, production-harvested test cases, you build the core telemetry needed to iterate on prompts, upgrade models, and scale your agent architecture with absolute confidence.</p>
+
+        <!-- CTA / Comments -->
+        <div class="cta-box">
+          <div class="cta-box__emoji" aria-hidden="true">💬</div>
+          <h3>What does your eval schema look like?</h3>
+          <p>Are you building agentic systems? How do you assert tool sequences and grade outputs at scale? I'd love to hear how other engineering teams are tackling non-determinism in CI/CD.</p>
+          <a href="mailto:hello@jayantadb.co.in?subject=Re: Eval Authoring" class="btn btn--primary" id="comments-cta-btn">Let's Discuss →</a>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar" aria-label="Article sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">About</h3>
+            <div class="author-avatar author-avatar--sm" aria-hidden="true">JD</div>
+            <p class="sidebar-bio">J.D. writes about ideas that deserve more time than we usually give them.</p>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Key Concepts</h3>
+            <ul class="related-list">
+              <li><a href="#" style="pointer-events:none; cursor:default;">⚙️ Composite Grading</a></li>
+              <li><a href="#" style="pointer-events:none; cursor:default;">📦 Negative assertions</a></li>
+              <li><a href="#" style="pointer-events:none; cursor:default;">🌾 Production harvesting</a></li>
+              <li><a href="#" style="pointer-events:none; cursor:default;">🛡️ The 4 quadrants of evals</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Related</h3>
+            <ul class="related-list">
+              <li><a href="rupee-essay.html" id="related-1">How Far Can the Rupee Fall?</a></li>
+              <li><a href="article.html" id="related-2">Attention as Infrastructure</a></li>
+              <li><a href="article.html" id="related-3">Autocomplete and the Erosion of Voice</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card sidebar-topics">
+            <h3 class="sidebar-title">Topics</h3>
+            <div class="sidebar-tags">
+              <span class="tag tag--tech">Technology</span>
+              <span class="tag tag--essay">Testing</span>
+              <span class="tag tag--phil">AI Engineering</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Article navigation -->
+    <nav class="article-nav" aria-label="Article navigation">
+      <a href="rupee-essay.html" class="article-nav__item article-nav__item--prev" id="prev-article">
+        <span class="article-nav__dir">← Previous</span>
+        <span class="article-nav__title">How Far Can the Rupee Fall?</span>
+      </a>
+      <a href="index.html#essays" class="article-nav__item article-nav__item--next" id="next-article">
+        <span class="article-nav__dir">All Essays →</span>
+        <span class="article-nav__title">Back to the archive</span>
+      </a>
+    </nav>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">✦</span>
+        <span>Writings</span>
+      </div>
+      <p class="footer-copy">Written with care. Read at your own pace.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html#essays" class="footer-link">Essays</a>
+        <a href="index.html#thoughts" class="footer-link">Thoughts</a>
+        <a href="index.html#about" class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="article.js"></script>
+</body>
+</html>
